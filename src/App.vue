@@ -23,9 +23,9 @@
         <h1>Your Task</h1>
         <section v-for="(task, id) in tasks" :key="task.id">
             <div class="section ">
-              <button @click="Read"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg></button>
-                <p>{{ task.title }}</p> 
-                <button @click="remove(id)" class="button-delete" v-if="role === 'admin'">X</button>  
+              <input type="checkbox" @change="toggleCompleted(id)" :checked="task.completed">
+              <p>{{ task.title }}</p> 
+              <button @click="remove(id)" class="button-delete" v-if="role === 'admin'">X</button>  
             </div>
         </section>
     </div>
@@ -79,6 +79,9 @@
       },
       remove(id){
         this.tasks.splice(id,1)
+      },
+      toggleCompleted(id) {
+        this.tasks[id].completed = !this.tasks[id].completed;
       },
       all(){
         this.tasks = [];
